@@ -141,7 +141,7 @@ echo "El back $proyecto esta en ejecucion."
 # Crea la base de datos
 # ======================================================================================================
 
-docker exec db /bin/sh -c "until mysqladmin ping -h 'localhost' -uroot -pMnBvCxZqWeRtY102938\!; do echo 'MySQL aún no está disponible...'; sleep 2; done && mysql -h 'localhost' -uroot -pMnBvCxZqWeRtY102938\! -e 'CREATE DATABASE IF NOT EXISTS $DATABASE;'"
+docker exec db /bin/sh -c "until mysqladmin ping -h 'localhost' -ufinadmin -p3s74EsL4Cl4v3; do echo 'MySQL aún no está disponible...'; sleep 2; done && mysql -h 'localhost' -uroot -pMnBvCxZqWeRtY102938\! -e 'CREATE DATABASE IF NOT EXISTS $DATABASE;'"
 
 # ======================================================================================================
 # Corremos nuestro back
