@@ -119,16 +119,16 @@ services:
     restart: always
     tty: true
     networks:
-      - cat-network
+      - monic-network
     volumes:
       - ../../nginx/certs:/back/certs
     ports:
       - $PORT:$PORT
 
 networks:
-  cat-network:
+  monic-network:
     driver: bridge
-    name: cat-network 
+    name: monic-network
 "
 
 # Escribe el contenido en el archivo de configuración

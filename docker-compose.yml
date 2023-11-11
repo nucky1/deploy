@@ -17,7 +17,7 @@ services:
       - ./nginx/html:/etc/nginx/html
     command: sh -c "chmod -R a+r /etc/nginx/html && nginx -g 'daemon off;'"
     networks:
-      - cat-network
+      - monic-network
   db:
     image: mysql
     restart: unless-stopped
@@ -29,7 +29,7 @@ services:
       - MYSQL_USER=finadmin
       - MYSQL_PASSWORD=3s74EsL4Cl4v3
     networks:
-      - cat-network
+      - monic-network
     volumes:
       - db-data:/var/lib/mysql
 
