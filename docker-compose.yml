@@ -1,0 +1,42 @@
+# Este docker deberia correr db y nginx solamente
+version: "3.8"
+
+services:
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    container_name: nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/config:/etc/nginx/conf.d
+      - ./nginx/certs:/etc/nginx/certs
+      - ./nginx/html:/etc/nginx/html
+    command: sh -c "chmod -R a+r /etc/nginx/html && nginx -g 'daemon off;'"
+    networks:
+      - cat-network
+
+  db:
+    image: mysql
+    restart: unless-stopped
+    container_name: db
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=MnBvCxZqWeRtY102938!
+    networks:
+      - cat-network
+    volumes:
+      - db-data:/var/lib/mysql
+
+networks:
+  cat-network:
+    driver: bridge
+    name: cat-network
+
+volumes:
+  frontend-data:
+  db-data:
