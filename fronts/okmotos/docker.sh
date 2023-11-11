@@ -170,12 +170,12 @@ services:
     restart: unless-stopped
     tty: true
     networks:
-      - cat-network
+      - monic-network
 
 networks:
-  cat-network:
+  monic-network:
     driver: bridge
-    name: cat-network
+    name: monic-network
 
 "
 
