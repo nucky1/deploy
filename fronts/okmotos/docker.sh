@@ -6,10 +6,10 @@
 # ======================================================================================================
 
 # URL del repositorio Git que deseas clonar o actualizar
-url_repositorio="https://github.com/nucky1/front-financiacion.git"
+url_repositorio="https://github.com/devcat-technologies/eventos-front.git"
 
 # Repositorie branch
-branch="test"
+branch="main"
 
 
 # ======================================================================================================
@@ -58,6 +58,8 @@ if [ -e "./$nombre_archivo" ]; then
   rm ./$nombre_archivo
 fi
 
+
+
 # Contenido de configuración
 archivo="\
 FROM node:19-alpine AS base
@@ -71,6 +73,7 @@ WORKDIR /app
 COPY ./files/package.json  ./package.json
 
 RUN npm install
+
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -109,18 +112,17 @@ ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-
 USER nextjs
 
 EXPOSE 3000
 
 ENV PORT 3000
-ENV REACT_APP_BASE_URL=https://monic.com.ar:8201/api
+ENV REACT_APP_BASE_URL=https://bmlnxtest01.catmain.local:8005/api
+
 
 # set hostname to localhost
 ENV HOSTNAME "0.0.0.0"
 
-# Start Next.js with npm start
 CMD [\"npm\", \"start\"]
 "
 
@@ -128,7 +130,6 @@ CMD [\"npm\", \"start\"]
 echo "$archivo" > "$nombre_archivo"
 
 echo "Archivo '$nombre_archivo' creado con éxito."
-
 
 
 # ======================================================================================================
@@ -158,12 +159,12 @@ services:
     restart: unless-stopped
     tty: true
     networks:
-      - monic-network
+      - cat-network
 
 networks:
-  monic-network:
+  cat-network:
     driver: bridge
-    name: monic-network
+    name: cat-network 
 
 "
 
