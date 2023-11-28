@@ -58,8 +58,6 @@ if [ -e "./$nombre_archivo" ]; then
   rm ./$nombre_archivo
 fi
 
-
-
 # Contenido de configuración
 archivo="\
 FROM node:19-alpine AS base
@@ -73,7 +71,6 @@ WORKDIR /app
 COPY ./files/package.json  ./package.json
 
 RUN npm install
-
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -101,8 +98,6 @@ fi
 # Continuar con el resto del contenido de configuración
 archivo="$archivo
 
-RUN npm run build
-
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
@@ -120,7 +115,6 @@ COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
@@ -128,19 +122,20 @@ USER nextjs
 EXPOSE 3000
 
 ENV PORT 3000
-ENV REACT_APP_BASE_URL=https://bmlnxtest01.catmain.local:8005/api
-
+ENV REACT_APP_BASE_URL=https://monic.com.ar:8201/api
 
 # set hostname to localhost
 ENV HOSTNAME "0.0.0.0"
 
-CMD [\"node\", \"server.js\"]
+# Start Next.js with npm start
+CMD [\"npm\", \"start\"]
 "
 
 # Escribe el contenido en el archivo de configuración
 echo "$archivo" > "$nombre_archivo"
 
 echo "Archivo '$nombre_archivo' creado con éxito."
+
 
 
 # ======================================================================================================
