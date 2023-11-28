@@ -9,7 +9,7 @@
 url_repositorio="https://github.com/devcat-technologies/eventos-front.git"
 
 # Repositorie branch
-branch="main"
+branch="test"
 
 
 # ======================================================================================================
